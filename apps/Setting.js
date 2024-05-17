@@ -1,6 +1,8 @@
-import plugin from '../../../lib/plugins/plugin.js'
-import Config from '../components/Config.js'
-import Init from '../model/init.js'
+import { plugin, YamlEditor, logger, common } from '#Karin'
+import Cfg from '../lib/config.js'
+import fs from 'fs'
+import { dirPath, version } from '../index.js'
+import { KarinContact } from '../../../lib/bot/KarinElement.js'
 
 export class neko_header extends plugin {
   constructor() {
@@ -41,67 +43,71 @@ export class neko_header extends plugin {
     })
   }
 
-  async header(e) {
-    const config = await Config.getConfig();
-    let url = e.msg.replace(/^[/#]?更换状态头图/, '').trim();
+  async header() {
+    const config = Cfg.Config
+    let url = this.e.msg.replace(/^[/#]?更换状态头图/, '').trim()
     let imageUrl;
 
-    if (e.img) {
-      imageUrl = e.img[0];
+    // 获取消息中的图片
+    if (this.e.image) {
+      imageUrl = this.e.image[0]
     }
 
-    if (e.source) {
-      const history = e.isGroup 
-        ? await e.group.getChatHistory(e.source.seq, 1) 
-        : await e.friend.getChatHistory(e.source.time, 1);
-      const replyMessage = history.pop()?.message;
+    const getChatHistoryMessage = async (messageId, count) => {
+      const contact = this.e.isGroup
+        ? KarinContact.group(parseInt(this.e.contact.peer))
+        : KarinContact.private(parseInt(this.e.contact.peer))
+      return await this.e.bot.GetHistoryMessage(contact, messageId, count)
+    }
 
-      if (replyMessage) {
-        const imageVal = replyMessage.find(val => val.type === "image");
-        if (imageVal) {
-          imageUrl = imageVal.url;
-        }
+    // 获取历史记录
+    if (this.e.contact) {
+      const historyMessage = await getChatHistoryMessage(this.e.message_id, 1)
+      if (historyMessage.image) {
+        imageUrl = historyMessage.image[0]
       }
     }
 
     if (url && !await isImageUrl(url)) {
-      e.reply('无法获取到图片，请检查链接是否正确');
+      this.reply('无法获取到图片，请检查链接是否正确')
       return false;
     }
 
-    url = url || imageUrl;
+    url = url || imageUrl
 
     if (url) {
-      config.headimg_url = url;
-      await Config.setConfig(config);
-      e.reply('设置成功');
+      config.headimg_url = url
+      const yamlEditor = new YamlEditor(`${dirPath}/config/config/config.yaml`)
+      yamlEditor.set('headimg_url', url)
+      this.reply('设置成功')
     } else {
-      e.reply('无法获取到图片');
-      return false;
+      this.reply('无法获取到图片')
+      return false
     }
   }
 
-  async template(e) {
-    const config = await Config.getConfig();
-    let template = e.msg.replace(/^[/#]?更换状态模板/, '').trim();
+  async template() {
+    const config = Cfg.Config
+    let template = this.e.msg.replace(/^[/#]?更换状态模板/, '').trim()
 
-    let templateOptions = await Config.getTemplate();
-    let templateList = templateOptions.map(val => val.value);
+    let templateOptions = await getTemplate()
+    let templateList = templateOptions.map(val => val.value)
 
     if (templateList.indexOf(template) === -1) {
-      e.reply('模板不存在，请发送“#状态模板列表”查看所有模板');
-      return false;
+      this.reply('模板不存在，请发送“#状态模板列表”查看所有模板')
+      return false
     }
 
-    config.use_template = template;
-    await Config.setConfig(config);
-    e.reply('设置成功，当前状态模板：' + template);
+    config.use_template = template
+    const yamlEditor = new YamlEditor(`${dirPath}/config/config/config.yaml`)
+    yamlEditor.set('use_template', template)
+    this.reply('设置成功，当前状态模板：' + template)
   }
 
   async templateList(e) {
-    let templateOptions = await Config.getTemplate();
+    let templateOptions = await getTemplate();
     let templateList = templateOptions.map(val => val.value);
-    e.reply('状态模板列表：\n' + templateList.join('\n'));
+    this.reply('状态模板列表：\n' + templateList.join('\n'));
     return true;
   }
 }
@@ -114,5 +120,18 @@ async function isImageUrl(imageUrl) {
   } catch (error) {
     console.error('检查失败:', error);
     return false;
+  }
+}
+async function getTemplate() {
+  try {
+    const template = fs.readdirSync(`${common.absPath(dirPath)}/resources/template`)
+    let templateOptions = []
+    template.forEach((item) => {
+      templateOptions.push({ label: item + '模板', value: item })
+    })
+    return templateOptions
+  } catch (err) {
+    logger.error(`[NEKO-STATUS-PLUGIN v${version}]`, '读取template失败')
+    return [{ label: '读取失败', value: 'default' }]
   }
 }
