@@ -1,4 +1,4 @@
-import { plugin, Renderer, segment, common } from '#Karin'
+import { plugin, Renderer, segment } from '#Karin'
 import Cfg from '../lib/config.js'
 import { dirPath, basename } from '../index.js'
 import getData from '../lib/model/getData.js'
