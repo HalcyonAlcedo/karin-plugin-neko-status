@@ -1,4 +1,4 @@
-![neko-status-plugin](https://socialify.git.ci/erzaozi/neko-status-plugin/image?description=1&font=Raleway&forks=1&issues=1&language=1&name=1&owner=1&pattern=Circuit%20Board&pulls=1&stargazers=1&theme=Auto)
+![neko-status-plugin](https://socialify.git.ci/HalcyonAlcedo/neko-status-plugin/image?description=1&font=Raleway&forks=1&issues=1&language=1&name=1&owner=1&pattern=Circuit%20Board&pulls=1&stargazers=1&theme=Auto)
 
 <img decoding="async" align=right src="resources/readme/girl.png" width="35%">
 
@@ -18,14 +18,14 @@
 #### 1. 克隆仓库
 
 ```
-git clone -b karin --single-branch https://github.com/erzaozi/neko-status-plugin.git ./plugins/karin-plugin-neko-status
+git clone -b karin --single-branch https://github.com/HalcyonAlcedo/neko-status-plugin.git ./plugins/karin-plugin-neko-status
 ```
 
 > [!NOTE]
 > 如果你的网络环境较差，无法连接到 Github，可以使用 [GitHub Proxy](https://mirror.ghproxy.com/) 提供的文件代理加速下载服务
 >
 > ```
-> git clone -b karin --single-branch https://mirror.ghproxy.com/https://github.com/erzaozi/neko-status-plugin.git ./plugins/karin-plugin-neko-status
+> git clone -b karin --single-branch https://mirror.ghproxy.com/https://github.com/HalcyonAlcedo/neko-status-plugin.git ./plugins/karin-plugin-neko-status
 > ```
 
 #### 2. 安装依赖
@@ -67,7 +67,7 @@ pnpm install --filter=karin-plugin-neko-status
 
 如果你喜欢这个项目，请不妨点个 Star🌟，这是对开发者最大的动力， 当然，你可以对我 [爱发电](https://afdian.net/a/sumoqi) 赞助，呜咪~❤️
 
-有意见或者建议也欢迎提交 [Issues](https://github.com/erzaozi/neko-status-plugin/issues) 和 [Pull requests](https://github.com/erzaozi/neko-status-plugin/pulls)。
+有意见或者建议也欢迎提交 [Issues](https://github.com/HalcyonAlcedo/neko-status-plugin/issues) 和 [Pull requests](https://github.com/HalcyonAlcedo/neko-status-plugin/pulls)。
 
 ## 相关项目 😻
 
