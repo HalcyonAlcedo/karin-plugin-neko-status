@@ -4,7 +4,7 @@
 
 # NEKO-STATUS-PLUGIN 🍙
 
-- 一个适用于 [Yunzai 系列机器人框架](https://github.com/yhArcadia/Yunzai-Bot-plugins-index) 的系统状态查询插件喵~
+- 一个适用于 [Karin 系列机器人框架](https://github.com/KarinJS/Karin) 的系统状态查询插件喵~
 
 - 有着更加精简，美观和超超超超超可爱的 UI 和的风格，并且你可以自定义头图喵~
 
@@ -18,26 +18,26 @@
 #### 1. 克隆仓库
 
 ```
-git clone https://github.com/erzaozi/neko-status-plugin.git ./plugins/neko-status-plugin
+git clone -b karin --single-branch https://github.com/erzaozi/neko-status-plugin.git ./plugins/karin-plugin-neko-status
 ```
 
 > [!NOTE]
 > 如果你的网络环境较差，无法连接到 Github，可以使用 [GitHub Proxy](https://mirror.ghproxy.com/) 提供的文件代理加速下载服务
 >
 > ```
-> git clone https://mirror.ghproxy.com/https://github.com/erzaozi/neko-status-plugin.git ./plugins/neko-status-plugin
+> git clone -b karin --single-branch https://mirror.ghproxy.com/https://github.com/erzaozi/neko-status-plugin.git ./plugins/karin-plugin-neko-status
 > ```
 
 #### 2. 安装依赖
 
 ```
-pnpm install --filter=neko-status-plugin
+pnpm install --filter=karin-plugin-neko-status
 ```
 
 ## 插件配置
 
 > [!WARNING]
-> 非常不建议手动修改配置文件，本插件已兼容 [Guoba-plugin](https://github.com/guoba-yunzai/guoba-plugin) ，请使用锅巴插件对配置项进行修改
+> 非常不建议手动修改配置文件，建议使用 [Karin Manage](https://github.com/HalcyonAlcedo/karin-plugin-manage) 插件对配置项进行修改
 
 ## 功能列表
 
@@ -49,7 +49,7 @@ pnpm install --filter=neko-status-plugin
 - [x] GPU 型号
 - [x] 插件数量
 - [x] 适配器信息
-- [x] 收发消息数量
+- [ ] 收发消息数量
 - [x] 好友 & 群数量
 - [x] 运行时间
 
