@@ -13,7 +13,7 @@ export class neko_status extends plugin {
       // 监听消息事件 默认message
       event: 'message',
       // 优先级
-      priority: 5000,
+      priority: 4999,
       rule: [
         {
           /** 命令正则匹配 */
