@@ -32,10 +32,8 @@ export class neko_status extends plugin {
     const data = await getData.getData(this.e)
     const base64 = await Renderer.render({
       name:'karin-plugin-neko-status',
+      file: `${dirPath}/resources/template/${config.use_template}/template.html`,
       data: {
-        tplFile: `${dirPath}/resources/template/${config.use_template}/template.html`,
-        saveId: 'status',
-        imgType: 'png',
         pluginResources: `../../../plugins/${basename}/resources/`,
         data: data
       }
