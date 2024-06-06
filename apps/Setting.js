@@ -1,8 +1,7 @@
 import { plugin, YamlEditor, logger, common } from '#Karin'
-import Cfg from '../lib/config.js'
-import fs from 'fs'
-import { dirPath, version } from '../index.js'
+import { Config, dirPath } from '#template'
 import { KarinContact } from '../../../lib/bot/KarinElement.js'
+import fs from 'fs'
 
 export class neko_header extends plugin {
   constructor() {
@@ -44,7 +43,7 @@ export class neko_header extends plugin {
   }
 
   async header() {
-    const config = Cfg.Config
+    const config = Config.Config
     let url = this.e.msg.replace(/^[/#]?更换状态头图/, '').trim()
     let imageUrl;
 
@@ -87,7 +86,7 @@ export class neko_header extends plugin {
   }
 
   async template() {
-    const config = Cfg.Config
+    const config = Config.Config
     let template = this.e.msg.replace(/^[/#]?更换状态模板/, '').trim()
 
     let templateOptions = await getTemplate()
@@ -131,7 +130,7 @@ async function getTemplate() {
     })
     return templateOptions
   } catch (err) {
-    logger.error(`[NEKO-STATUS-PLUGIN v${version}]`, '读取template失败')
+    logger.error(`[NEKO-STATUS-PLUGIN v${Config.package.version}]`, '读取template失败')
     return [{ label: '读取失败', value: 'default' }]
   }
 }

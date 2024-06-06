@@ -1,6 +1,5 @@
 import { plugin, Renderer, segment } from '#Karin'
-import Cfg from '../lib/config.js'
-import { dirPath, basename } from '../index.js'
+import { dirPath, basename, Config } from '#template'
 import getData from '../lib/model/getData.js'
 
 export class neko_status extends plugin {
@@ -28,7 +27,7 @@ export class neko_status extends plugin {
   }
 
   async status() {
-    const config = Cfg.Config
+    const config = Config.Config
     const data = await getData.getData(this.e)
     const base64 = await Renderer.render({
       name:'karin-plugin-neko-status',

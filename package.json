@@ -7,7 +7,8 @@
     "systeminformation": "^5.17.12"
   },
   "imports": {
-    "#Karin": "./lib/index.js"
+    "#Karin": "./lib/imports/index.js",
+    "#template": "./lib/imports/template.js"
   },
   "author": "Alcedo",
   "license": "AGPL-3.0"
