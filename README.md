@@ -13,19 +13,22 @@
 > [!TIP]
 > 在看到 [Koishi](https://koishi.js.org/) 和 [Nonebot](https://nonebot.dev/) 类似风格的插件后，身为猫猫控我与 [CikeyQi](https://github.com/CikeyQi) 立马喜欢上了如此精美的设计，于是决定将这个插件移植到 Yunzai 上，并重新修改创作了模板加上了自定义头图，人家有的咱们也可以有喵~
 
+> [!TIP]
+> 根据[neko-status-plugin](https://github.com/erzaozi/neko-status-plugin)的功能，按照Karin模板开发规范移植的 Karin 版本
+
 ## 安装插件
 
 #### 1. 克隆仓库
 
 ```
-git clone -b karin --single-branch https://github.com/HalcyonAlcedo/neko-status-plugin.git ./plugins/karin-plugin-neko-status
+git clone -b karin --single-branch https://github.com/HalcyonAlcedo/karin-plugin-neko-status.git ./plugins/karin-plugin-neko-status
 ```
 
 > [!NOTE]
 > 如果你的网络环境较差，无法连接到 Github，可以使用 [GitHub Proxy](https://mirror.ghproxy.com/) 提供的文件代理加速下载服务
 >
 > ```
-> git clone -b karin --single-branch https://mirror.ghproxy.com/https://github.com/HalcyonAlcedo/neko-status-plugin.git ./plugins/karin-plugin-neko-status
+> git clone -b karin --single-branch https://mirror.ghproxy.com/https://github.com/HalcyonAlcedo/karin-plugin-neko-status.git ./plugins/karin-plugin-neko-status
 > ```
 
 #### 2. 安装依赖
