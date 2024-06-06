@@ -1,0 +1,17 @@
+-
+  # 配置文件描述
+  name: 通用配置
+  # 配置文件名
+  file: config.yaml
+  # 视图信息
+  view:
+    -
+      key: 用户模板
+      comment: 生成状态的模板
+      path: 'use_template'
+      type: 'text'
+    -
+      key: 图片api
+      comment: 用于生成状态的背景图片获取api
+      path: 'headimg_url'
+      type: 'url'
