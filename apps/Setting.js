@@ -1,6 +1,5 @@
 import { plugin, YamlEditor, logger, common } from '#Karin'
 import { Config, dirPath } from '#template'
-import { KarinContact } from '../../../lib/bot/KarinElement.js'
 import fs from 'fs'
 
 export class neko_header extends plugin {
@@ -53,10 +52,7 @@ export class neko_header extends plugin {
     }
 
     const getChatHistoryMessage = async (messageId, count) => {
-      const contact = this.e.isGroup
-        ? KarinContact.group(parseInt(this.e.contact.peer))
-        : KarinContact.private(parseInt(this.e.contact.peer))
-      return await this.e.bot.GetHistoryMessage(contact, messageId, count)
+      return await this.e.bot.GetHistoryMessage(this.e.contact, messageId, count)
     }
 
     // 获取历史记录
