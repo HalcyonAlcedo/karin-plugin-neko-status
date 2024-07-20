@@ -33,7 +33,7 @@ export class neko_status extends plugin {
       name:'karin-plugin-neko-status',
       file: `${dirPath}/resources/template/${config.use_template}/template.html`,
       data: {
-        pluginResources: `../../../plugins/${basename}/resources/`,
+        pluginResources: `../../../plugins/${basename}/resources`,
         data: data
       }
     })
