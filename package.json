@@ -1,13 +1,12 @@
 {
   "name": "karin-plugin-neko-status",
-  "version": "0.0.1",
+  "version": "1.0.2",
   "description": "状态展示插件，基于neko-status-plugin插件的Karin实现",
   "type": "module",
   "dependencies": {
     "systeminformation": "^5.17.12"
   },
   "imports": {
-    "#Karin": "./lib/imports/index.js",
     "#template": "./lib/imports/template.js"
   },
   "author": "Alcedo",

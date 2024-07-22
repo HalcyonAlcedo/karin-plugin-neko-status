@@ -15,3 +15,8 @@
       comment: 用于生成状态的背景图片获取api
       path: 'headimg_url'
       type: 'url'
+    -
+      key: Windows加速
+      comment: 在Windows上使用原生方法获取数据
+      path: 'wmic'
+      type: 'boolean'

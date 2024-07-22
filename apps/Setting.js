@@ -1,70 +1,33 @@
-import { plugin, YamlEditor, logger, common } from '#Karin'
+import { karin, YamlEditor, logger, common } from 'node-karin'
 import { Config, dirPath } from '#template'
 import fs from 'fs'
 
-export class neko_header extends plugin {
-  constructor() {
-    super({
-      /** 功能名称 */
-      name: 'neko头图',
-      /** 功能描述 */
-      dsc: '设置状态头图',
-      event: 'message',
-      /** 优先级，数字越小等级越高 */
-      priority: 1009,
-      rule: [
-        {
-          /** 命令正则匹配 */
-          reg: '^[/#]?更换状态头图.*$',
-          /** 执行方法 */
-          fnc: 'header',
-          /** 主人权限 */
-          permission: 'master'
-        },
-        {
-          /** 命令正则匹配 */
-          reg: '^[/#]?更换状态模板.*$',
-          /** 执行方法 */
-          fnc: 'template',
-          /** 主人权限 */
-          permission: 'master'
-        },
-        {
-          /** 命令正则匹配 */
-          reg: '^[/#]?状态模板列表.*$',
-          /** 执行方法 */
-          fnc: 'templateList',
-          /** 主人权限 */
-          permission: 'master'
-        }
-      ]
-    })
-  }
-
-  async header() {
+export const header = karin.command(
+  /^[/#]?更换状态头图.*$/,
+  async (e) => {
     const config = Config.Config
-    let url = this.e.msg.replace(/^[/#]?更换状态头图/, '').trim()
+    let url = e.msg.replace(/^[/#]?更换状态头图/, '').trim()
     let imageUrl;
 
     // 获取消息中的图片
-    if (this.e.image) {
-      imageUrl = this.e.image[0]
+    if (e.image) {
+      imageUrl = e.image[0]
     }
 
     const getChatHistoryMessage = async (messageId, count) => {
-      return await this.e.bot.GetHistoryMessage(this.e.contact, messageId, count)
+      return await e.bot.GetHistoryMessage(e.contact, messageId, count)
     }
 
     // 获取历史记录
-    if (this.e.contact) {
-      const historyMessage = await getChatHistoryMessage(this.e.message_id, 1)
+    if (e.contact) {
+      const historyMessage = await getChatHistoryMessage(e.message_id, 1)
       if (historyMessage.image) {
         imageUrl = historyMessage.image[0]
       }
     }
 
     if (url && !await isImageUrl(url)) {
-      this.reply('无法获取到图片，请检查链接是否正确')
+      e.reply('无法获取到图片，请检查链接是否正确')
       return false;
     }
 
@@ -74,38 +37,45 @@ export class neko_header extends plugin {
       config.headimg_url = url
       const yamlEditor = new YamlEditor(`${dirPath}/config/config/config.yaml`)
       yamlEditor.set('headimg_url', url)
-      this.reply('设置成功')
+      e.reply('设置成功')
     } else {
-      this.reply('无法获取到图片')
+      e.reply('无法获取到图片')
       return false
     }
-  }
-
-  async template() {
+  },
+  { permission: 'master' }
+)
+export const template = karin.command(
+  /^[/#]?更换状态模板.*$/,
+  async (e) => {
     const config = Config.Config
-    let template = this.e.msg.replace(/^[/#]?更换状态模板/, '').trim()
+    let template = e.msg.replace(/^[/#]?更换状态模板/, '').trim()
 
     let templateOptions = await getTemplate()
     let templateList = templateOptions.map(val => val.value)
 
     if (templateList.indexOf(template) === -1) {
-      this.reply('模板不存在，请发送“#状态模板列表”查看所有模板')
+      e.reply('模板不存在，请发送“#状态模板列表”查看所有模板')
       return false
     }
 
     config.use_template = template
     const yamlEditor = new YamlEditor(`${dirPath}/config/config/config.yaml`)
     yamlEditor.set('use_template', template)
-    this.reply('设置成功，当前状态模板：' + template)
-  }
-
-  async templateList(e) {
+    e.reply('设置成功，当前状态模板：' + template)
+  },
+  { permission: 'master' }
+)
+export const templateList = karin.command(
+  /^[/#]?状态模板列表.*$/,
+  async (e) => {
     let templateOptions = await getTemplate();
     let templateList = templateOptions.map(val => val.value);
-    this.reply('状态模板列表：\n' + templateList.join('\n'));
+    e.reply('状态模板列表：\n' + templateList.join('\n'));
     return true;
-  }
-}
+  },
+  { permission: 'master' }
+)
 
 async function isImageUrl(imageUrl) {
   try {
